@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/favicon-32x32.png"
+    />
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
+    <!-- JAVASCRIPT -->
+    <script src="./assets/js/script.js"></script>
+
+    <title>Frontend Mentor | Tic Tac Toe</title>
+  </head>
+
+  <body>
+    <!-- NEW GAME MENU -->
+    <main>
+      <div class="menu">
+        <img class="logo" src="./assets/images/logo.svg" alt="" />
+
+        <div class="menu__pick">
+          <div class="menu__player">
+            <p class="menu__player-txt">Pick player 1's mark</p>
+
+            <!-- INPUT RADIO -->
+            <fieldset class="fieldset__group">
+              <legend>Pick player 1's mark</legend>
+              <div class="choices">
+                <div class="choice">
+                  <label for="player-x" class="choice__custom choice__x">
+                    <input
+                      type="radio"
+                      /* class="player__choice" */
+                      name="player"
+                      id="player-x"
+                      aria-label="X choice"
+                      checked
+                    />
+                    <svg
+                      class="svg__x choice__player"
+                      viewBox="0 0 64 64"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M15.002 1.147 32 18.145 48.998 1.147a3 3 0 0 1 4.243 0l9.612 9.612a3 3 0 0 1 0 4.243L45.855 32l16.998 16.998a3 3 0 0 1 0 4.243l-9.612 9.612a3 3 0 0 1-4.243 0L32 45.855 15.002 62.853a3 3 0 0 1-4.243 0L1.147 53.24a3 3 0 0 1 0-4.243L18.145 32 1.147 15.002a3 3 0 0 1 0-4.243l9.612-9.612a3 3 0 0 1 4.243 0Z"
+                      />
+                    </svg>
+                  </label>
+                </div>
+                <div class="choice">
+                  <label for="player-o" class="choice__custom choice__o">
+                    <input
+                      type="radio"
+                      /* class="player__choice" */
+                      name="player"
+                      id="player-o"
+                      aria-label="O choice"
+                    />
+                    <svg
+                      class="svg__o choice__player"
+                      viewBox="0 0 64 64"
+                      fill="currentColor"
+                      fill-rule="nonzero"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32 0 14.327 14.327 0 32 0Zm0 18.963c-7.2 0-13.037 5.837-13.037 13.037 0 7.2 5.837 13.037 13.037 13.037 7.2 0 13.037-5.837 13.037-13.037 0-7.2-5.837-13.037-13.037-13.037Z"
+                      />
+                    </svg>
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <p class="menu__pick-txt">Remember : x goes first</p>
+        </div>
+
+        <div class="menu__btn">
+          <button class="btn btn__cpu">New Game (vs CPU)</button>
+          <button class="btn btn__player">New Game (vs player)</button>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

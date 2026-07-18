@@ -1,0 +1,279 @@
+/* *========================================
+      * FONTS *
+*======================================== */
+/* outfit-medium - latin */
+@font-face {
+  font-display: swap;
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 500;
+  src: url("../fonts/outfit-v15-latin-500.woff2") format("woff2");
+}
+/* outfit-bold - latin */
+@font-face {
+  font-display: swap;
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/outfit-v15-latin-700.woff2") format("woff2");
+}
+
+/* *========================================
+      * VARIABLES *
+*======================================== */
+:root {
+  /*  colors */
+  --clr-neutral-0: hsl(0, 0%, 100%);
+  --clr-neutral-950: hsl(0, 0%, 0%);
+
+  --clr-slate-950: hsl(201, 45%, 11%);
+  --clr-slate-900: hsl(202, 32%, 15%);
+  --clr-slate-850: hsl(203, 28%, 18%);
+  --clr-slate-800: hsl(199, 35%, 19%);
+  --clr-slate-300: hsl(198, 23%, 72%);
+  --clr-slate-100: hsl(197, 33%, 89%);
+
+  --clr-amber-500: hsl(39, 83%, 44%);
+  --clr-amber-400: hsl(39, 88%, 58%);
+  --clr-amber-300: hsl(39, 100%, 69%);
+
+  --clr-teal-500: hsl(178, 78%, 31%);
+  --clr-teal-400: hsl(178, 60%, 48%);
+  --clr-teal-300: hsl(178, 75%, 65%);
+
+  /* typographie */
+  --ff-base: "Outfit", Arial, Helvetica, sans-serif;
+
+  /* font size */
+  --fs-12: 0.75rem;
+  --fs-14: 0.875rem;
+  --fs-16: 1rem;
+  --fs-20: 1.25rem;
+  --fs-24: 1.5rem;
+  --fs-40: 2.5rem;
+
+  /* font weight */
+  --fw-bold: 700;
+  --fw-medium: 500;
+
+  /* Spacing */
+  --spacing-0: 0;
+  --spacing-100: 8px;
+  --spacing-150: 12px;
+  --spacing-200: 16px;
+  --spacing-250: 20px;
+  --spacing-300: 24px;
+  --spacing-375: 30px;
+  --spacing-400: 32px;
+  --spacing-500: 40px;
+
+  /* radius */
+  --radius-0: 0;
+  --radius-4: 4px;
+  --radius-6: 6px;
+  --radius-10: 10px;
+  --radius-16: 16px;
+}
+
+/* *========================================
+      * RESET / BASE *
+*======================================== */
+/* RESET -------------------------------- */
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  padding: 0;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+input,
+textarea,
+select {
+  border: none;
+  outline: none;
+  box-shadow: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+/* BASE -------------------------------- */
+body {
+  font-family: var(--ff-base);
+  font-weight: var(--fw-medium);
+  background-color: var(--clr-slate-900);
+  min-height: 100vh;
+  padding-inline: 1, 5rem;
+
+  display: grid;
+  place-content: center;
+}
+
+/* *========================================
+      * NEW GAME MENU *
+*======================================== */
+.menu {
+  min-width: 20.4375rem;
+
+  display: grid;
+  justify-items: center;
+  gap: var(--spacing-400);
+}
+
+.menu__pick {
+  margin-bottom: var(--spacing-100);
+  text-align: center;
+  background-color: var(--clr-slate-800);
+  border-radius: var(--radius-16);
+  padding: var(--spacing-300);
+  color: var(--clr-slate-300);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+  line-height: 125%;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  width: 100%;
+  box-shadow: 0 8px 0 var(--clr-slate-950);
+}
+
+.menu__player {
+  display: grid;
+  gap: var(--spacing-300);
+}
+
+/* ---- < INPUT RADIO ------------------------ */
+.fieldset__group {
+  border: none;
+  padding: var(--spacing-100);
+  border-radius: var(--radius-10);
+  background-color: var(--clr-slate-900);
+}
+.fieldset__group legend {
+  display: none;
+}
+.choices {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+}
+.choice {
+  width: 100%;
+  display: flex;
+}
+.choice svg {
+  width: 32px;
+  height: 32px;
+}
+.choice__custom {
+  border-radius: var(--radius-10);
+  cursor: pointer;
+  width: 100%;
+  height: 54px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.choice__x:hover,
+.choice__o:hover {
+  background-color: var(--clr-slate-850);
+}
+.choice__custom:has(input:checked) {
+  background-color: var(--clr-slate-300);
+}
+.choice__custom input:checked ~ .choice__player {
+  color: var(--clr-slate-900);
+}
+/* ---- INPUT RADIO > ------------------------ */
+
+.menu__pick-txt {
+  margin-top: var(--spacing-200);
+  font-size: var(--fs-14);
+  color: var(--clr-slate-300);
+  line-height: 130%;
+  letter-spacing: 0.9px;
+}
+
+/* BUTTON */
+.menu__btn {
+  width: 100%;
+  display: grid;
+  gap: var(--spacing-300);
+}
+.btn {
+  height: 3rem;
+  color: var(--clr-slate-900);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+  line-height: 125%;
+  letter-spacing: 1px;
+  border-radius: var(--radius-16);
+  text-transform: uppercase;
+}
+.btn__cpu {
+  background-color: var(--clr-amber-400);
+  box-shadow: 0 8px 0 var(--clr-amber-500);
+}
+.btn__cpu:hover {
+  background-color: var(--clr-amber-300);
+}
+.btn__player {
+  background-color: var(--clr-teal-400);
+  box-shadow: 0 8px 0 var(--clr-teal-500);
+}
+.btn__player:hover {
+  background-color: var(--clr-teal-300);
+}
+.btn__cpu,
+.btn__player,
+.choice__x,
+.choice__0 {
+  transition: background-color 0.3s;
+}
+
+/* *========================================
+      * MEDIA *
+*======================================== */
+/* NEW GAME MENU ------------ */
+.menu {
+  min-width: 28.75rem;
+  gap: var(--spacing-500);
+}
+
+.btn {
+  height: 3.6875rem;
+}
+.menu__btn {
+  gap: var(--spacing-375);
+}
