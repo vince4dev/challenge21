@@ -8,88 +8,220 @@
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="./assets/favicon-32x32.png"
+      href="./assets/images/favicon-32x32.png"
     />
 
     <!-- STYLE CSS -->
     <link rel="stylesheet" href="./assets/css/style.css" />
 
     <!-- JAVASCRIPT -->
-    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/script.js" defer></script>
 
     <title>Frontend Mentor | Tic Tac Toe</title>
   </head>
 
   <body>
-    <!-- NEW GAME MENU -->
+    <!--=== OVERLAY ===-->
+    <div id="overlay" class="overlay"></div>
+
     <main>
-      <div class="menu">
-        <img class="logo" src="./assets/images/logo.svg" alt="" />
+      <!-- ---=== GAME MENU ===--- -->
+      <section id="section-menu">
+        <div class="menu">
+          <img class="logo" src="./assets/images/logo.svg" alt="" />
 
-        <div class="menu__pick">
-          <div class="menu__player">
-            <p class="menu__player-txt">Pick player 1's mark</p>
+          <div class="menu__pick">
+            <div class="menu__player">
+              <p class="menu__player-txt">Pick player 1's mark</p>
 
-            <!-- INPUT RADIO -->
-            <fieldset class="fieldset__group">
-              <legend>Pick player 1's mark</legend>
-              <div class="choices">
-                <div class="choice">
-                  <label for="player-x" class="choice__custom choice__x">
-                    <input
-                      type="radio"
-                      /* class="player__choice" */
-                      name="player"
-                      id="player-x"
-                      aria-label="X choice"
-                      checked
-                    />
-                    <svg
-                      class="svg__x choice__player"
-                      viewBox="0 0 64 64"
-                      fill="currentColor"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M15.002 1.147 32 18.145 48.998 1.147a3 3 0 0 1 4.243 0l9.612 9.612a3 3 0 0 1 0 4.243L45.855 32l16.998 16.998a3 3 0 0 1 0 4.243l-9.612 9.612a3 3 0 0 1-4.243 0L32 45.855 15.002 62.853a3 3 0 0 1-4.243 0L1.147 53.24a3 3 0 0 1 0-4.243L18.145 32 1.147 15.002a3 3 0 0 1 0-4.243l9.612-9.612a3 3 0 0 1 4.243 0Z"
+              <!-- radio input -->
+              <fieldset class="fieldset__group">
+                <legend>Pick player 1's mark</legend>
+                <div class="choices">
+                  <div class="choice">
+                    <label for="x" class="choice__custom choice__x">
+                      <input
+                        type="radio"
+                        name="player"
+                        id="x"
+                        aria-label="X choice"
                       />
-                    </svg>
-                  </label>
-                </div>
-                <div class="choice">
-                  <label for="player-o" class="choice__custom choice__o">
-                    <input
-                      type="radio"
-                      /* class="player__choice" */
-                      name="player"
-                      id="player-o"
-                      aria-label="O choice"
-                    />
-                    <svg
-                      class="svg__o choice__player"
-                      viewBox="0 0 64 64"
-                      fill="currentColor"
-                      fill-rule="nonzero"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32 0 14.327 14.327 0 32 0Zm0 18.963c-7.2 0-13.037 5.837-13.037 13.037 0 7.2 5.837 13.037 13.037 13.037 7.2 0 13.037-5.837 13.037-13.037 0-7.2-5.837-13.037-13.037-13.037Z"
+                      <svg
+                        class="svg__x choice__player"
+                        viewBox="0 0 64 64"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M15.002 1.147 32 18.145 48.998 1.147a3 3 0 0 1 4.243 0l9.612 9.612a3 3 0 0 1 0 4.243L45.855 32l16.998 16.998a3 3 0 0 1 0 4.243l-9.612 9.612a3 3 0 0 1-4.243 0L32 45.855 15.002 62.853a3 3 0 0 1-4.243 0L1.147 53.24a3 3 0 0 1 0-4.243L18.145 32 1.147 15.002a3 3 0 0 1 0-4.243l9.612-9.612a3 3 0 0 1 4.243 0Z"
+                        />
+                      </svg>
+                    </label>
+                  </div>
+                  <div class="choice">
+                    <label for="o" class="choice__custom choice__o">
+                      <input
+                        type="radio"
+                        name="player"
+                        id="o"
+                        aria-label="O choice"
+                        checked
                       />
-                    </svg>
-                  </label>
+                      <svg
+                        class="svg__o choice__player"
+                        viewBox="0 0 64 64"
+                        fill="currentColor"
+                        fill-rule="nonzero"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32 0 14.327 14.327 0 32 0Zm0 18.963c-7.2 0-13.037 5.837-13.037 13.037 0 7.2 5.837 13.037 13.037 13.037 7.2 0 13.037-5.837 13.037-13.037 0-7.2-5.837-13.037-13.037-13.037Z"
+                        />
+                      </svg>
+                    </label>
+                  </div>
                 </div>
-              </div>
-            </fieldset>
+              </fieldset>
+            </div>
+
+            <p class="menu__pick-txt">Remember : x goes first</p>
           </div>
 
-          <p class="menu__pick-txt">Remember : x goes first</p>
+          <!-- buttons -->
+          <div class="menu__btn">
+            <button id="btn-cpu" class="btn btn__cpu">New Game (vs CPU)</button>
+            <button id="btn-player" class="btn btn__player">
+              New Game (vs player)
+            </button>
+          </div>
         </div>
+      </section>
 
-        <div class="menu__btn">
-          <button class="btn btn__cpu">New Game (vs CPU)</button>
-          <button class="btn btn__player">New Game (vs player)</button>
+      <!-- ---=== GAME START ===--- -->
+      <section id="section-start">
+        <div class="start">
+          <!-- header -->
+          <div class="start__header">
+            <img src="./assets/images/logo.svg" alt="" />
+            <div id="turn" class="turn">
+              <!-- icon X -->
+              <svg
+                id="turn-ico-x"
+                class="turn-ico-x"
+                viewBox="0 0 64 64"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15.002 1.147 32 18.145 48.998 1.147a3 3 0 0 1 4.243 0l9.612 9.612a3 3 0 0 1 0 4.243L45.855 32l16.998 16.998a3 3 0 0 1 0 4.243l-9.612 9.612a3 3 0 0 1-4.243 0L32 45.855 15.002 62.853a3 3 0 0 1-4.243 0L1.147 53.24a3 3 0 0 1 0-4.243L18.145 32 1.147 15.002a3 3 0 0 1 0-4.243l9.612-9.612a3 3 0 0 1 4.243 0Z"
+                />
+              </svg>
+              <!-- icon O -->
+              <svg
+                id="turn-ico-o"
+                class="turn-ico-o"
+                viewBox="0 0 64 64"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32 0 14.327 14.327 0 32 0Zm0 18.963c-7.2 0-13.037 5.837-13.037 13.037 0 7.2 5.837 13.037 13.037 13.037 7.2 0 13.037-5.837 13.037-13.037 0-7.2-5.837-13.037-13.037-13.037Z"
+                />
+              </svg>
+              TURN
+            </div>
+            <div class="btn__restart-wrapper">
+              <button id="btn-restart" class="btn__restart">
+                <svg
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19.524 0h-1.88a.476.476 0 0 0-.476.499l.159 3.284A9.81 9.81 0 0 0 9.835.317C4.415.317-.004 4.743 0 10.167.004 15.597 4.406 20 9.835 20a9.796 9.796 0 0 0 6.59-2.536.476.476 0 0 0 .019-.692l-1.348-1.349a.476.476 0 0 0-.65-.022 6.976 6.976 0 0 1-9.85-.63 6.987 6.987 0 0 1 .63-9.857 6.976 6.976 0 0 1 10.403 1.348l-4.027-.193a.476.476 0 0 0-.498.476v1.881c0 .263.213.476.476.476h7.944A.476.476 0 0 0 20 8.426V.476A.476.476 0 0 0 19.524 0Z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- board -->
+          <div class="start__board">
+            <div class="start__cells">
+              <button class="cell" data-cell="1"></button>
+              <button class="cell" data-cell="2"></button>
+              <button class="cell" data-cell="3"></button>
+              <button class="cell" data-cell="4"></button>
+              <button class="cell" data-cell="5"></button>
+              <button class="cell" data-cell="6"></button>
+              <button class="cell" data-cell="7"></button>
+              <button class="cell" data-cell="8"></button>
+              <button class="cell" data-cell="9"></button>
+            </div>
+            <div class="start__score">
+              <div class="score score__player-x">
+                <p class="score__txt">
+                  x <span id="score-x-txt" class="player__x">(you)</span>
+                </p>
+                <p id="score-x-val" class="score__value">0</p>
+              </div>
+              <div class="score score__ties">
+                <p class="score__txt">ties</p>
+                <span id="score-ties-val" class="score__value">0</span>
+              </div>
+              <div class="score score__player-o">
+                <p class="score__txt">
+                  o <span id="score-o-txt" class="player__o">(cpu)</span>
+                </p>
+                <span id="score-o-val" class="score__value">0</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <!-- ---=== MESSAGES WIN/LOSS/RESTART/ROUND ===--- -->
+      <section id="section-messages">
+        <div class="messages">
+          <p id="message-status" class="message__status">YOU WON!</p>
+          <div class="message__wrapper">
+            <div class="message__text">
+              <img id="message-ico" class="message__ico" src="" alt="" />
+              <p id="message-txt">TAKES THE ROUND</p>
+            </div>
+            <div>
+              <div id="cancel-restart-wrapper" class="message__btn-wrapper">
+                <button
+                  id="message-btn-cancel"
+                  class="message__btn message__btn-cancel"
+                >
+                  NO, CANCEL
+                </button>
+                <button
+                  id="message-btn-restart"
+                  class="message__btn message__btn-restart"
+                >
+                  YES, RESTART
+                </button>
+              </div>
+              <div id="quit-round-wrapper" class="message__btn-wrapper">
+                <button
+                  id="message-btn-quit"
+                  class="message__btn message__btn-quit"
+                >
+                  QUIT
+                </button>
+                <button
+                  id="message-btn-round"
+                  class="message__btn message__btn-round"
+                >
+                  NEXT ROUND
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   </body>
 </html>
