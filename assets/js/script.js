@@ -30,6 +30,69 @@ const CONFIG = {
 };
 
 /* ==================================================================
+  SAVE LOCAL STORAGE
+================================================================== */
+const STORAGE_KEY = "tictactoe_state";
+
+function saveGameState() {
+  const state = {
+    board: gameState.board,
+    currentPlayer: gameState.currentPlayer,
+    scores: gameState.scores,
+    typeGame: gameState.typeGame,
+    cpuSymbol: gameState.cpuSymbol,
+    playerSymbol: gameState.playerSymbol,
+    cpuPlaying: gameState.cpuPlaying,
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function loadGameState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return false;
+    const state = JSON.parse(saved);
+    if (state.typeGame === "players" || state.typeGame === "cpu") {
+      Object.assign(gameState, state);
+      return true;
+    }
+    return false;
+  } catch {
+    return false;
+  }
+}
+
+function restoreGameUI() {
+  Object.entries(gameState.board).forEach(([cellId, symbol]) => {
+    if (symbol) {
+      const cell = document.querySelector(`[data-cell="${cellId}"]`);
+      if (cell) {
+        cell.style.backgroundImage = `url("${CONFIG.images[symbol].filled}")`;
+        cell.style.backgroundPosition = "center";
+        cell.style.backgroundRepeat = "no-repeat";
+        cell.style.pointerEvents = "none";
+      }
+    }
+  });
+
+  DOM.scores.x.val.innerText = gameState.scores.x;
+  DOM.scores.o.val.innerText = gameState.scores.o;
+  DOM.scores.ties.innerText = gameState.scores.ties;
+
+  updateUI();
+  updateScoreLabels();
+
+  DOM.sections.menu.style.display = "none";
+  DOM.sections.start.style.display = "grid";
+  DOM.sections.messages.style.display = "none";
+  DOM.overlay.classList.remove("active");
+
+  if (gameState.cpuPlaying) {
+    setTimeout(makeCPUMove, 600);
+  }
+}
+
+/* ==================================================================
   STATE
 ================================================================== */
 let gameState = {
@@ -158,6 +221,7 @@ function handleTurnEnd(winner = null) {
     DOM.scores.ties.innerText = gameState.scores.ties;
     setTimeout(() => showMessage("tie"), 1000);
   }
+  saveGameState();
 }
 
 // Handles the click on a cell
@@ -207,6 +271,7 @@ function handleCellClick(e) {
     // Change of turn
     gameState.currentPlayer = gameState.currentPlayer === "x" ? "o" : "x";
     updateUI();
+    saveGameState();
 
     // If in CPU mode and it's its turn
     if (
@@ -258,6 +323,7 @@ function makeCPUMove() {
     gameState.currentPlayer = gameState.playerSymbol;
     gameState.cpuPlaying = false;
     updateUI();
+    saveGameState();
   }
 }
 
@@ -362,6 +428,8 @@ function resetRound() {
   DOM.sections.messages.style.display = "none";
   initBoard();
 
+  saveGameState();
+
   // CPU goes first if it has X
   if (gameState.typeGame === "cpu" && gameState.cpuSymbol === "x") {
     gameState.cpuPlaying = true;
@@ -373,6 +441,7 @@ function resetRound() {
 }
 
 function quitGame() {
+  localStorage.removeItem(STORAGE_KEY);
   // Show the Menu
   DOM.sections.messages.style.display = "none";
   DOM.overlay.classList.remove("active");
@@ -394,6 +463,8 @@ function resetGame() {
 
   initScore();
   initBoard();
+
+  localStorage.removeItem(STORAGE_KEY);
 
   // CPU goes first if it has X
   if (gameState.typeGame === "cpu" && gameState.cpuSymbol === "x") {
@@ -459,3 +530,8 @@ DOM.message.cancel.addEventListener("click", cancel);
 DOM.message.restart.addEventListener("click", resetGame);
 
 DOM.buttons.restart.addEventListener("click", restart);
+
+// Restore saved game state on page load
+if (loadGameState()) {
+  restoreGameUI();
+}
