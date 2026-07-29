@@ -86,6 +86,7 @@ function restoreGameUI() {
   DOM.sections.start.style.display = "grid";
   DOM.sections.messages.style.display = "none";
   DOM.overlay.classList.remove("active");
+  DOM.cells[0].focus();
 
   if (gameState.cpuPlaying) {
     setTimeout(makeCPUMove, 600);
@@ -454,11 +455,13 @@ function showMessage(type, winner = null) {
         : "PLAYER 2 WINS!";
     }
     DOM.message.quit_round.style.display = "flex";
+    DOM.message.round.focus();
   } else if (type === "tie") {
     DOM.message.txt.innerHTML = "ROUND TIED";
     DOM.message.txt.style.color = CONFIG.colors.tie;
     DOM.message.quit_round.style.display = "flex";
     DOM.message.round.style.display = "flex";
+    DOM.message.round.focus();
   }
 }
 
@@ -473,11 +476,13 @@ function restart() {
   DOM.sections.messages.style.display = "block";
   DOM.message.txt.innerHTML = "RESTART GAME?";
   DOM.message.cancel_restart.style.display = "flex";
+  DOM.message.cancel.focus();
 }
 
 function cancel() {
   DOM.overlay.classList.remove("active");
   DOM.sections.messages.style.display = "none";
+  DOM.buttons.restart.focus();
 }
 
 function resetRound() {
@@ -485,6 +490,7 @@ function resetRound() {
   DOM.overlay.classList.remove("active");
   DOM.sections.messages.style.display = "none";
   initBoard();
+  [...DOM.cells].find((c) => !c.style.backgroundImage)?.focus();
 
   saveGameState();
 
@@ -508,6 +514,7 @@ function quitGame() {
 
   initScore();
   initBoard();
+  DOM.buttons.cpu.focus();
 }
 
 function resetGame() {
@@ -521,6 +528,7 @@ function resetGame() {
 
   initScore();
   initBoard();
+  DOM.cells[0].focus();
 
   localStorage.removeItem(STORAGE_KEY);
 
@@ -588,6 +596,18 @@ DOM.message.cancel.addEventListener("click", cancel);
 DOM.message.restart.addEventListener("click", resetGame);
 
 DOM.buttons.restart.addEventListener("click", restart);
+
+// Escape key closes messages
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape" || !DOM.overlay.classList.contains("active")) return;
+  e.preventDefault();
+
+  if (DOM.message.cancel_restart.style.display === "flex") {
+    cancel();
+  } else {
+    resetRound();
+  }
+});
 
 // Restore saved game state on page load
 if (loadGameState()) {

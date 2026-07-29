@@ -237,6 +237,10 @@ body {
   align-items: center;
   justify-content: center;
 }
+.choice__custom:focus-within {
+  outline: 2px solid var(--clr-teal-400);
+  outline-offset: 2px;
+}
 .choice__x:hover,
 .choice__o:hover {
   background-color: var(--clr-slate-850);

@@ -285,7 +285,66 @@ function handleCellClick(e) {
   }
 }
 
-// CPU GAME
+// START - CPU GAME — Minimax AI ---------------------------------------------------
+function evaluateBoard(board) {
+  for (const combo of CONFIG.winningCombinations) {
+    const [a, b, c] = combo;
+    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+      if (board[a] === gameState.cpuSymbol) return 1;
+      if (board[a] === gameState.playerSymbol) return -1;
+    }
+  }
+  return 0;
+}
+
+function minimax(board, depth, isMaximizing) {
+  const result = evaluateBoard(board);
+  if (result !== 0) return result > 0 ? 10 - depth : depth - 10;
+  if (Object.values(board).every((val) => val !== null)) return 0;
+
+  if (isMaximizing) {
+    let best = -Infinity;
+    for (const key of Object.keys(board)) {
+      if (board[key] === null) {
+        board[key] = gameState.cpuSymbol;
+        best = Math.max(best, minimax(board, depth + 1, false));
+        board[key] = null;
+      }
+    }
+    return best;
+  } else {
+    let best = Infinity;
+    for (const key of Object.keys(board)) {
+      if (board[key] === null) {
+        board[key] = gameState.playerSymbol;
+        best = Math.min(best, minimax(board, depth + 1, true));
+        board[key] = null;
+      }
+    }
+    return best;
+  }
+}
+
+function getBestMove() {
+  let bestScore = -Infinity;
+  let bestMove = null;
+
+  for (const key of Object.keys(gameState.board)) {
+    if (gameState.board[key] === null) {
+      gameState.board[key] = gameState.cpuSymbol;
+      const score = minimax(gameState.board, 0, false);
+      gameState.board[key] = null;
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestMove = key;
+      }
+    }
+  }
+  return bestMove;
+}
+// END - CPU GAME — Minimax AI ---------------------------------------------------
+
 function makeCPUMove() {
   const availableCells = Object.entries(gameState.board)
     .filter(([key, val]) => val === null)
@@ -293,9 +352,7 @@ function makeCPUMove() {
 
   if (availableCells.length === 0) return;
 
-  // Random Choice
-  const randomIndex = Math.floor(Math.random() * availableCells.length);
-  const cellId = availableCells[randomIndex];
+  const cellId = getBestMove();
 
   // Apply
   gameState.board[cellId] = gameState.currentPlayer;
@@ -336,6 +393,7 @@ function highlightWinningCells(combo, winner) {
     }
   });
 }
+
 /* ==================================================================
   FUNCTIONS UI
 ================================================================== */
